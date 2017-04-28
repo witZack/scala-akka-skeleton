@@ -1,0 +1,19 @@
+version: '2'
+services:
+  db:
+    image: mysql/mysql-server:5.6
+    environment:
+      - DEBUG=false
+      - MYSQL_DATABASE=[Some username]
+      - MYSQL_ROOT_PASSWORD=[Some password]
+  app:
+    build: .
+    volumes:
+      - .:/app
+    ports:
+      - "3000:3000"
+    links:
+      - db
+    environment:
+      - MAINDB_SERVICE_HOST=db
+      - MAINDB_PASSWORD=[Some password]
